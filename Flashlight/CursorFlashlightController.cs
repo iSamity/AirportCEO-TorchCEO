@@ -22,7 +22,8 @@ sealed class CursorFlashlightController : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         DefaultConfig.CursorFlashlightEnabled.SettingChanged += OnEnabledChanged;
         DefaultConfig.CursorFlashlightIntensityBelowGround.SettingChanged += OnLightParamsChanged;
-        DefaultConfig.CursorFlashlightIntensityAboveGround.SettingChanged += OnLightParamsChanged;
+        DefaultConfig.CursorFlashlightIntensityAboveGroundDay.SettingChanged += OnLightParamsChanged;
+        DefaultConfig.CursorFlashlightIntensityAboveGroundNight.SettingChanged += OnLightParamsChanged;
         DefaultConfig.CursorFlashlightRange.SettingChanged += OnLightParamsChanged;
         EnsureLightObject();
         ApplyEnabledFromConfig();
@@ -33,7 +34,8 @@ sealed class CursorFlashlightController : MonoBehaviour
     {
         DefaultConfig.CursorFlashlightEnabled.SettingChanged -= OnEnabledChanged;
         DefaultConfig.CursorFlashlightIntensityBelowGround.SettingChanged -= OnLightParamsChanged;
-        DefaultConfig.CursorFlashlightIntensityAboveGround.SettingChanged -= OnLightParamsChanged;
+        DefaultConfig.CursorFlashlightIntensityAboveGroundDay.SettingChanged -= OnLightParamsChanged;
+        DefaultConfig.CursorFlashlightIntensityAboveGroundNight.SettingChanged -= OnLightParamsChanged;
         DefaultConfig.CursorFlashlightRange.SettingChanged -= OnLightParamsChanged;
     }
 
@@ -92,10 +94,17 @@ sealed class CursorFlashlightController : MonoBehaviour
         _light.intensity = IntensityAfterRangeCompensation(IntensityForFloor(FloorManager.currentFloor));
     }
 
-    private static float IntensityForFloor(int floorZ) =>
-        floorZ < 0
-            ? DefaultConfig.CursorFlashlightIntensityBelowGround.Value
-            : DefaultConfig.CursorFlashlightIntensityAboveGround.Value;
+    private static bool IsGameNightForTorch() =>
+        Singleton<TimeController>.Instance != null && TimeController.IsNight;
+
+    private static float IntensityForFloor(int floorZ)
+    {
+        if (floorZ < 0)
+            return DefaultConfig.CursorFlashlightIntensityBelowGround.Value;
+        return IsGameNightForTorch()
+            ? DefaultConfig.CursorFlashlightIntensityAboveGroundNight.Value
+            : DefaultConfig.CursorFlashlightIntensityAboveGroundDay.Value;
+    }
 
     private void LateUpdate()
     {

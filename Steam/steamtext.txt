@@ -1,21 +1,19 @@
 [h3]Note[/h3]
 This mod requires the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3109136766]AirportCEO Mod Loader[/url] to function. Please make sure it is correctly downloaded and installed!
 
-[h3]Welcome[/h3]
-TorchCEO adds an optional cursor flashlight for Airport CEO: a point light that follows your mouse on the active floor while you play. Handy for dark underground areas or whenever you want extra light on the build plane. The torch is off by default—toggle it with your shortcut (default Ctrl+T) or enable it in the mod configuration.
-
 [h3]Description[/h3]
-While enabled, a small point light tracks the cursor on the current floor. Intensity can be set separately for underground levels (Z below ground) and for surface / upper floors (set above-ground intensity to 0 to keep the torch off there). In-game only; uses your existing camera / floor logic so the light stays on the plane you are building on.
+While enabled, a spotlight tracks the cursor on the current floor and points at the hit on that plane. Intensity is set separately for underground levels (Z below ground), for surface and upper floors during day, and again during evening/night (game clock). Set an above-ground value to 0 to keep the torch off for that period. You can tune how far the light reaches; past the configured range it fades out, and intensity is scaled down at longer ranges so the center does not blow out to white.
 
 [h3]Features[/h3]
 - Config: enable cursor flashlight (default: off)
 - Toggle in-game with a keyboard shortcut (default Ctrl+T; configurable under Flashlight via [url=https://github.com/iSamity/AirportCEO-ShortcutCeo-V4]ShortcutCeo[/url])
-- Independent intensity for below-ground vs at/above ground
+- Independent intensity for below ground, above ground by day, and above ground at night
+- Configurable spotlight range with automatic intensity compensation for large ranges
 - Depends on [url=https://github.com/iSamity/AirportCEO-ShortcutCeo-V4]ShortcutCeo[/url] for the configurable shortcut (install alongside this mod)
 
 [h3]Version[/h3]
 Read more on [url=https://github.com/iSamity/AirportCEO-TorchCEO/releases]GitHub[/url].
-- v1.0.0 - Initial release
+- v1.0.0 - Initial release: cursor spotlight, day/night above-ground intensities, configurable range
 
 [h3]Developers[/h3]
 Source and contribution info: [url=https://github.com/iSamity/AirportCEO-TorchCEO]GitHub[/url].

@@ -83,7 +83,7 @@ sealed class CursorFlashlightController : MonoBehaviour
                 _light.enabled = false;
             return;
         }
-        // When enabled, visibility and intensity are applied in LateUpdate (above-ground 0 = stay off).
+        // When enabled, visibility and intensity are applied in LateUpdate (above-ground 0 = stay off for bright sun).
     }
 
     private void ApplyLightParamsFromConfig()
@@ -94,14 +94,21 @@ sealed class CursorFlashlightController : MonoBehaviour
         _light.intensity = IntensityAfterRangeCompensation(IntensityForFloor(FloorManager.currentFloor));
     }
 
-    private static bool IsGameNightForTorch() =>
-        Singleton<TimeController>.Instance != null && TimeController.IsNight;
+    /// <summary>
+    /// Matches vanilla mouse-light gating: use "night" torch sensitivity when outdoor lighting is low (sun intensity).
+    /// See <see cref="LightController.OutsideLightsShouldBeTurnedOn"/>.
+    /// </summary>
+    private static bool ShouldUseNightTorchSensitivity()
+    {
+        var lc = Singleton<LightController>.Instance;
+        return lc != null && lc.OutsideLightsShouldBeTurnedOn;
+    }
 
     private static float IntensityForFloor(int floorZ)
     {
         if (floorZ < 0)
             return DefaultConfig.CursorFlashlightIntensityBelowGround.Value;
-        return IsGameNightForTorch()
+        return ShouldUseNightTorchSensitivity()
             ? DefaultConfig.CursorFlashlightIntensityAboveGroundNight.Value
             : DefaultConfig.CursorFlashlightIntensityAboveGroundDay.Value;
     }

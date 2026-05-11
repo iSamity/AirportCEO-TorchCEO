@@ -8,7 +8,7 @@ This mod requires the [AirportCEO Mod Loader](https://steamcommunity.com/sharedf
 
 ## Description
 
-While enabled, a spotlight tracks the cursor on the current floor and points at the hit on that plane. Intensity is set separately for underground levels (Z below ground), for surface and upper floors during day, and again during evening/night (game clock). Set an above-ground value to 0 to keep the torch off for that period. You can tune how far the light reaches; past the configured range it fades out, and intensity is scaled down at longer ranges so the center does not blow out to white.
+While enabled, a spotlight tracks the cursor on the current floor and points at the hit on that plane. Intensity is set separately for underground levels (Z below ground), for surface and upper floors in bright daylight, and again when it is dark outside (it is using the same logic as the Airports light on/off). Set an above-ground value to 0 to keep the torch off for that period. You can tune how far the light reaches; past the configured range it fades out, and intensity is scaled down at longer ranges so the center does not blow out to white.
 
 ## Features
 
@@ -22,6 +22,7 @@ While enabled, a spotlight tracks the cursor on the current floor and points at 
 
 Read more on [GitHub Releases](https://github.com/iSamity/AirportCEO-TorchCEO/releases).
 
+- **v1.1.0** — Hide vanilla cursor light; above-ground day vs dark uses outdoor lighting (not the clock); clearer config descriptions
 - **v1.0.0** — Initial release: cursor spotlight, day/night above-ground intensities, configurable range
 
 ## Developers

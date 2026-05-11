@@ -6,13 +6,13 @@ While enabled, a spotlight tracks the cursor on the current floor and points at 
 
 [h3]Features[/h3]
 - Config: enable cursor flashlight (default: off)
-- Toggle in-game with a keyboard shortcut (default Ctrl+T; configurable under Flashlight via [url=https://github.com/iSamity/AirportCEO-ShortcutCeo-V4]ShortcutCeo[/url])
+- Optional in-game toggle shortcut when [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3560363115]ShortcutCeo[/url] is installed (default Ctrl+T); without it, turn the torch on only via Flashlight in config (F1)
 - Independent intensity for below ground, above ground by day, and above ground at night
 - Configurable spotlight range with automatic intensity compensation for large ranges
-- Depends on [url=https://github.com/iSamity/AirportCEO-ShortcutCeo-V4]ShortcutCeo[/url] for the configurable shortcut (install alongside this mod)
 
 [h3]Version[/h3]
 Read more on [url=https://github.com/iSamity/AirportCEO-TorchCEO/releases]GitHub[/url].
+- v1.2.0 - ShortcutCeo optional (soft dependency): keyboard toggle only with ShortcutCeo installed; otherwise enable the torch under Flashlight in config. Direct ShortcutCeo hook without reflection; welcome message matches setup
 - v1.1.0 - Vanilla build/demolish cursor light disabled while the mod is loaded; above-ground day vs dark uses outdoor lighting (not the clock); clearer config descriptions
 - v1.0.0 - Initial release: cursor spotlight, day/night above-ground intensities, configurable range
 

@@ -1,8 +1,8 @@
+using System;
 using BepInEx;
 using BepInEx.Configuration;
 using BepInEx.Logging;
 using HarmonyLib;
-using ShortcutCeo.config;
 using TorchCEO.Config;
 using TorchCEO.Flashlight;
 using UnityEngine;
@@ -11,7 +11,7 @@ namespace TorchCEO;
 
 [BepInPlugin($"org.iSamity.{MyPluginInfo.PLUGIN_GUID}", MyPluginInfo.PLUGIN_NAME, MyPluginInfo.PLUGIN_VERSION)]
 [BepInDependency("org.airportceomodloader.humoresque")]
-[BepInDependency("org.iSamity.plugins.ShortcutCeo")]
+[BepInDependency(ShortcutCeoIntegration.ShortcutCeoPluginGuid, BepInDependency.DependencyFlags.SoftDependency)]
 public class Plugin : BaseUnityPlugin
 {
     internal static new ManualLogSource Logger;
@@ -20,7 +20,6 @@ public class Plugin : BaseUnityPlugin
 
     private void Awake()
     {
-        // Plugin startup logic
         Logger = base.Logger;
         ConfigReference = base.Config;
 
@@ -36,15 +35,33 @@ public class Plugin : BaseUnityPlugin
 
     private void Start()
     {
-        ToggleTorchShortcut = ConfigReference.Bind(
-            "Flashlight",
-            "Toggle cursor flashlight",
-            new KeyboardShortcut(KeyCode.T, KeyCode.LeftControl),
-            "Toggles the cursor torch.");
-
-        ConfigManager.AddShortcut(ToggleTorchShortcut, () =>
+        if (!ShortcutCeoIntegration.IsShortcutCeoLoaded())
         {
-            DefaultConfig.CursorFlashlightEnabled.Value = !DefaultConfig.CursorFlashlightEnabled.Value;
-        });
+            ToggleTorchShortcut = null;
+            Logger.LogInfo(
+                "TorchCEO: ShortcutCeo not installed — no keyboard toggle; enable the torch under Flashlight in config (F1 / TorchCEO.cfg). Install ShortcutCeo if you want an in-game shortcut.");
+            return;
+        }
+
+        try
+        {
+            ToggleTorchShortcut = ConfigReference.Bind(
+                "Flashlight",
+                "Toggle cursor flashlight",
+                new KeyboardShortcut(KeyCode.T, KeyCode.LeftControl),
+                "Press this combo to turn the cursor torch on or off (registered with ShortcutCeo).");
+
+            ShortcutCeoShortcutRegistration.RegisterToggle(ToggleTorchShortcut, ToggleTorchEnabled);
+        }
+        catch (Exception ex)
+        {
+            ToggleTorchShortcut = null;
+            Logger.LogWarning($"TorchCEO: ShortcutCeo is loaded but toggle registration failed ({ex.Message}).");
+        }
+    }
+
+    private static void ToggleTorchEnabled()
+    {
+        DefaultConfig.CursorFlashlightEnabled.Value = !DefaultConfig.CursorFlashlightEnabled.Value;
     }
 }

@@ -35,6 +35,7 @@
     </Reference>
     <Reference Include="ShortcutCeo">
       <HintPath>Libs\ShortcutCeo.dll</HintPath>
+      <Private>false</Private>
     </Reference>
   </ItemGroup>
 

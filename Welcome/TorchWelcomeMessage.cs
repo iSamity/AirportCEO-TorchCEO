@@ -13,15 +13,13 @@ internal static class TorchWelcomeMessage
         if (!DefaultConfig.ShowWelcomeMessage.Value)
             return;
 
-        var toggleHint = Plugin.ToggleTorchShortcut != null
-            ? Plugin.ToggleTorchShortcut.Value.ToString()
-            : "Ctrl+T";
-
         var welcomeMessageText =
             "Welcome to TorchCEO!\n\n" +
             "This mod adds a cursor flashlight: a point light that follows your mouse on the current floor.\n\n" +
-            "The torch is off by default. Press " + toggleHint +
-            " to toggle it, or open the mod configuration (F1) and enable it under Flashlight.";
+            "The torch is off by default. Open the mod configuration (F1) and enable it under Flashlight." +
+            (Plugin.ToggleTorchShortcut != null
+                ? "\n\nYou can also press " + Plugin.ToggleTorchShortcut.Value + " to toggle it (ShortcutCeo)."
+                : "\n\nInstall the ShortcutCeo mod if you want an optional in-game keyboard shortcut to toggle the torch.");
 
         DialogUtils.QueueDialog(welcomeMessageText);
         DefaultConfig.ShowWelcomeMessage.Value = false;

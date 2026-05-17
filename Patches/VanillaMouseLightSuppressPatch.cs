@@ -1,4 +1,5 @@
 using HarmonyLib;
+using TorchCEO.Config;
 
 namespace TorchCEO.Patches;
 
@@ -11,6 +12,11 @@ internal static class VanillaMouseLightSuppressPatch
 {
     static bool Prefix()
     {
-        return false;
+        if (DefaultConfig.CursorFlashlightEnabled.Value == true)
+        {
+            return false;
+        }
+
+        return true;
     }
 }

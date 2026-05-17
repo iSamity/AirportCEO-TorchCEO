@@ -12,6 +12,7 @@ While enabled, a spotlight tracks the cursor on the current floor and points at 
 
 [h3]Version[/h3]
 Read more on [url=https://github.com/iSamity/AirportCEO-TorchCEO/releases]GitHub[/url].
+- v1.2.1 - Enable vanilla light when flashlight mod is off 
 - v1.2.0 - ShortcutCeo optional (soft dependency): keyboard toggle only with ShortcutCeo installed; otherwise enable the torch under Flashlight in config. Direct ShortcutCeo hook without reflection; welcome message matches setup
 - v1.1.0 - Vanilla build/demolish cursor light disabled while the mod is loaded; above-ground day vs dark uses outdoor lighting (not the clock); clearer config descriptions
 - v1.0.0 - Initial release: cursor spotlight, day/night above-ground intensities, configurable range
